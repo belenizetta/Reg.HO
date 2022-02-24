@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize'; 
 import { User } from './user.models';
 import { UserDTO } from './user.dto'; 
+import { Control } from 'src/control/control.models';
+
  
 @Injectable() 
 export class UsersService { 
@@ -18,6 +20,9 @@ export class UsersService {
   } 
   async create(userDTO: UserDTO): Promise<User> { 
     const newUser = new this.userModel(userDTO);
+    const control1 = new Control();
+    control1.role = 1;
+    newUser.controls = [control1];
     return newUser.save(); 
   } 
   async update(id: string, newUser: User): Promise<User> { 

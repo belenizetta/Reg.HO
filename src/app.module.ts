@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersController } from './user/user.controller';
+import { Control } from './control/control.models';
 import { User } from './user/user.models';
 import { UsersModule } from './user/user.module';
-import { UsersService } from './user/user.services';
+import { ControlModule } from './control/control.module';
+import { Project } from './project/project.models';
+import { ProjectModule} from './project/project.module';
 
 @Module({
   imports: [
@@ -16,11 +18,13 @@ import { UsersService } from './user/user.services';
       username: 'root',
       password: 'admin',
       database: 'resgitro_hora_db',      
-      models: [User],
+      models: [User,Control,Project],
       autoLoadModels: true,
       synchronize: true,
     }),
-    UsersModule
+    UsersModule,
+    ControlModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService]

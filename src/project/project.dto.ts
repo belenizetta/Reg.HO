@@ -1,16 +1,15 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class UserDTO {
+export class ProjectDTO {
     @ApiProperty()
     readonly name: string;
     @ApiProperty()
-    readonly email: string;
+    readonly fecha_inicio: Date;
     @ApiProperty()
-    readonly password: string;
+    readonly fecha_fin: Date;
     @ApiProperty()
-    readonly phone: string;
+    readonly cliente: string;
     @ApiProperty()
-    readonly role: string;
+    readonly estado: string;
 
-    readonly controls: number[];
 }
