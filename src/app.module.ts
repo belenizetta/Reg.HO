@@ -7,18 +7,20 @@ import { User } from './user/user.models';
 import { UsersModule } from './user/user.module';
 import { ControlModule } from './control/control.module';
 import { Project } from './project/project.models';
-import { ProjectModule} from './project/project.module';
+import { ProjectModule } from './project/project.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }), //se importa de madera global en toda la aplicacion
     SequelizeModule.forRoot({
       dialect: 'mysql',
-      host: '127.0.0.1',
-      port: 3306,
-      username: 'root',
-      password: 'admin',
-      database: 'resgitro_hora_db',      
-      models: [User,Control,Project],
+      host: process.env.MYSQL_URI,
+      port: +process.env.PORT,
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: 'resgitro_hora_db',
+      models: [User, Control, Project],
       autoLoadModels: true,
       synchronize: true,
     }),
@@ -27,6 +29,6 @@ import { ProjectModule} from './project/project.module';
     ProjectModule,
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [AppService],
 })
 export class AppModule {}
